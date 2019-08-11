@@ -10,18 +10,14 @@ const taskSchema = new mongoose.Schema({
     completed:{
         type:Boolean,
         default: false
+    },
+    owner:{
+        type: mongoose.Schema.Types.ObjectID,
+        required: true,
+        ref:'User'
     }
 });
 
-taskSchema.pre('save',async function(next){
-    const task = this;
-    // if(task.isModified('desc')||task.isModified('completed'))
-    // {
-    //
-    // }
-    console.log("Before saving");
-    next()
-});
 
 const Task = mongoose.model('Task',taskSchema);
 
