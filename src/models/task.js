@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const Task = mongoose.model('Task',{
+
+const taskSchema = new mongoose.Schema({
     desc:{
         type:String,
         required:true,
@@ -11,6 +12,18 @@ const Task = mongoose.model('Task',{
         default: false
     }
 });
+
+taskSchema.pre('save',async function(next){
+    const task = this;
+    // if(task.isModified('desc')||task.isModified('completed'))
+    // {
+    //
+    // }
+    console.log("Before saving");
+    next()
+});
+
+const Task = mongoose.model('Task',taskSchema);
 
 
 module.exports = Task;
