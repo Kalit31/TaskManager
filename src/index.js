@@ -4,33 +4,8 @@ const User = require('./models/user');
 const Task = require('./models/task');
 const userRouter = require('./routers/users');
 const taskRouter = require('./routers/tasks');
-
 const app = express();
-const port = process.env.PORT || 3000;
-
-const multer = require('multer');
-const upload = multer({
-    dest: 'images',
-    limits:{
-        fileSize:100000
-    },
-    fileFilter(req,file,cb){
-        if(!file.originalname.match(/\.(doc|docx)$/))
-            return cb(new Error('Please upload a Word document'))
-
-        cb(undefined,true)
-        // cb(new Error('File must be a PDF'))
-        // cb(undefined,true)
-
-    }
-});
-
-
-app.post('/upload',upload.single('upload'),(req,res)=>{
-    res.send()
-},(error,req,res,next)=>{
-  res.status(400).send({error:error.message})
-})
+const port = process.env.PORT;
 
 
 app.use(express.json());
